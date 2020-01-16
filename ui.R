@@ -11,53 +11,52 @@ library(shiny)
 library(shinyMobile)
 library(leaflet)
 
-# Define UI for application that draws a histogram
-
-
-
-shinyUI(f7Page(theme = "dark",
+# Define UI
+shinyUI(f7Page(
+    theme = "dark",
     f7SingleLayout(
         navbar = f7Navbar(
-            title = "Trees Near Me",
-            subtitle = "Location will automatically update",
+            title = "The Tree ID",
+            subtitle = a("Get In Touch", href = "mailto:barkerstu@gmail.com"),
             hairline = F,
             shadow = T,
-            tags$script('$(document).ready(function () {
-              
+            tags$script(
+                '$(document).ready(function () {
+
                 function getLocation(callback){
                 var options = {
                   enableHighAccuracy: true,
-                  timeout: 30000,
+                  timeout: 5000,
                   maximumAge: 0
                 };
-                
+
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
-                
+
                 function onError (err) {
                   Shiny.onInputChange("geolocation", false);
                 }
-                
+
                 function onSuccess (position) {
                   setTimeout(function () {
                     var coords = position.coords;
                     var timestamp = new Date();
-                    
+
                     console.log(coords.latitude + ", " + coords.longitude, "," + coords.accuracy);
                     Shiny.onInputChange("geolocation", true);
                     Shiny.onInputChange("lat", coords.latitude);
                     Shiny.onInputChange("long", coords.longitude);
                     Shiny.onInputChange("accuracy", coords.accuracy);
                     Shiny.onInputChange("time", timestamp)
-                  
+
                     console.log(timestamp);
-                
+
                     if (callback) {
                       callback();
                     }
                   }, 1100)
                 }
               }
-              
+
               var TIMEOUT = 100000; //SPECIFY
               var started = false;
               function getLocationRepeat(){
@@ -67,32 +66,39 @@ shinyUI(f7Page(theme = "dark",
                   getLocation(getLocationRepeat);
                   return;
                 }
-              
+
                 setTimeout(function () {
                   getLocation(getLocationRepeat);
                 }, TIMEOUT);
-                
+
               };
-                
+
               getLocationRepeat();
-                
+
             });
-                        ')
+                        '
+            )
         ),
         leafletOutput("map"),
-    tags$style(type = "text/css", "#map {height: calc(100vh - 80px) !important;}"),
-    
-    
-    toolbar = f7Toolbar(
-        position = "bottom"
+        tags$style(type = "text/css", "#map {height: calc(100vh - 80px) !important;}"),
         
-        ),
-    
-    f7BlockFooter(text = "For more information please contact..")
         
-    )
-    )
+        toolbar = f7Toolbar(
+            position = "bottom",
+            f7Link(
+                label = "Trees of Bristol",
+                src = "https://bristoltrees.space/Tree/",
+                external = T
+            ),
+            f7Link(
+                label = "Bristol Tree Forum",
+                src = "https://bristoltreeforum.org/",
+                external = T
+            )
+        )
+        
+    )#,
     
+    #f7BlockFooter(text = "For more information please contact..")
     
-)
-
+))
