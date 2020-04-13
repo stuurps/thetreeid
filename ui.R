@@ -94,6 +94,7 @@ shinyUI(f7Page(
                 label = "Survey",
                 src = "https://treesurvey.online/shiny/survey",
                 external = T
+            )
         )
         
     )#,
