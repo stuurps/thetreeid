@@ -6,32 +6,30 @@
 library(shiny)
 library(leaflet)
 library(leaflet.extras)
-library(data.table)
-library(proj4)
-library(stringr)
+#library(proj4)
 library(geosphere)
 library(shinyMobile)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-    md <- fread("trees.csv")
-    nrow(md)
-    head(md)
+    md <- read.csv("treesv2.csv")
+    #nrow(md)
+    #head(md)
     
-    setDT(md)[, paste0("loc", 1:2) := tstrsplit(geo_point_2d, ",")]
+    #setDT(md)[, paste0("loc", 1:2) := tstrsplit(geo_point_2d, ",")]
     
     observe({
         if (!is.null(input$lat)) {
             #Current location
             lc <- NULL
-            lc$Name <- "Current Location"
+            lc$Name <- as.character("Current Location")
             lc$loc1 <- input$lat
             lc$loc2 <- input$long
             lc$dist <- 0
             lc$type <- "currentlocation"
             
             #Clean
-            colnames(md)[24] <- "Name"
+            colnames(md)[3] <- "Name"
             md_sub <- subset(md, select = c(Name, loc1, loc2))
             md_sub$loc1 <- as.numeric(md_sub$loc1)
             md_sub$loc2 <- as.numeric(md_sub$loc2)
@@ -41,6 +39,7 @@ shinyServer(function(input, output) {
                 distHaversine(c(input$long, input$lat), md_sub[, 3:2])
             md_cls <- subset(md_sub, dist <= 75)
             md_cls$type <- "tree"
+            md_cls$Name <- as.character(md_cls$Name)
             
             #Add current location to date fram
             md_cls <- rbind(md_cls, lc)
