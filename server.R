@@ -6,7 +6,6 @@
 library(shiny)
 library(leaflet)
 library(leaflet.extras)
-#library(proj4)
 library(geosphere)
 library(shinyMobile)
 
