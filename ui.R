@@ -17,7 +17,7 @@ shinyUI(f7Page(
     f7SingleLayout(
         navbar = f7Navbar(
             title = "The Tree ID",
-            subtitle = a("Get In Touch", href = "mailto:barkerstu@gmail.com"),
+            subtitle = a("Get In Touch", href = "mailto:thetreeid@gmail.com"),
             hairline = F,
             shadow = T,
             tags$script(
