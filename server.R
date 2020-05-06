@@ -37,12 +37,15 @@ shinyServer(function(input, output) {
             md_sub$dist <-
                 distHaversine(c(input$long, input$lat), md_sub[, 3:2])
             md_cls <- subset(md_sub, dist <= 75)
+            if(nrow(md_cls) > 0){
             md_cls$type <- "tree"
             md_cls$Name <- as.character(md_cls$Name)
             
             #Add current location to date fram
             md_cls <- rbind(md_cls, lc)
-            
+            } else{
+                md_cls <- lc
+            }
             
             #Define marker icon
             #treeicon <- makeIcon(
