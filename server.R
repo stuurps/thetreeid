@@ -45,7 +45,13 @@ shinyServer(function(input, output) {
             md_cls <- rbind(md_cls, lc)
             } else{
                 md_cls <- lc
-                f7Notif("Looks like you aren't in Bristol..", closeButton = T)
+                f7Notif(
+                    text = "test",
+                    icon = f7Icon("bolt_fill"),
+                    title = "Notification",
+                    subtitle = "A subtitle",
+                    titleRightText = "now",
+                    session = session)
                 
             }
             
