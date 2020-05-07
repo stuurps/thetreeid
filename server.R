@@ -45,6 +45,7 @@ shinyServer(function(input, output) {
             md_cls <- rbind(md_cls, lc)
             } else{
                 md_cls <- lc
+                
             }
             
             #Define marker icon
