@@ -46,11 +46,13 @@ shinyServer(function(input, output, session) {
             } else{
                 md_cls <- lc
                 f7Notif(
-                    text = "test",
+                    text = "Looks like you aren't in Bristol",
                     icon = f7Icon("bolt_fill"),
                     title = "Notification",
-                    subtitle = "A subtitle",
+                    subtitle = "Oops..",
                     titleRightText = "now",
+                    closeButton = T,
+                    closeTimeout = 10000,
                     session = session)
                 
             }
