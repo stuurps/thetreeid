@@ -10,7 +10,7 @@ library(geosphere)
 library(shinyMobile)
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
     md <- read.csv("treesv2.csv")
     #nrow(md)
     #head(md)
